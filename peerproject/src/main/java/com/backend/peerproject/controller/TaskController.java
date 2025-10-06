@@ -1,8 +1,8 @@
 package com.backend.peerproject.controller;
 
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,25 +33,22 @@ public class TaskController {
 
     @GetMapping
     public ResponseEntity<List<Task>> getAll() {
-       return taskService.getAll();
+        return taskService.getAll();
     }
 
-        @PostMapping
-        public ResponseEntity<Task> create(@RequestBody Task item) {
-            return taskService.create(item);
-        }
-       
-        @PutMapping("{id}")
-        public ResponseEntity<Task> update(@PathVariable("id") Long id, @RequestBody Task item) {
-            return taskService.update(id,item);
-        }
+    @PostMapping
+    public ResponseEntity<Task> create(@RequestBody Task item) {
+        return taskService.create(item);
+    }
 
-        @DeleteMapping("{id}")
-        public ResponseEntity<HttpStatus> delete(@PathVariable("id") Long id) {
-            return taskService.delete(id);
-        }
-    
-    
-    
+    @PutMapping("{id}")
+    public ResponseEntity<Task> update(@PathVariable("id") Long id, @RequestBody Task item) {
+        return taskService.update(id, item);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<HttpStatus> delete(@PathVariable("id") Long id) {
+        return taskService.delete(id);
+    }
 
 }
