@@ -6,9 +6,13 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.backend.peerproject.entity.Task;
 import com.backend.peerproject.entity.User;
 import com.backend.peerproject.repository.UserRepository;
 
+@Service
 public class UserService {
 
     @Autowired
@@ -29,7 +33,9 @@ public class UserService {
             List<User> items = new ArrayList<User>();
 
             repository.findAll().forEach(items::add);
-
+            // for (User user : items) {
+            // user.getTasks().forEach(task -> task.setUser(user));
+            // }
             if (items.isEmpty())
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
@@ -41,6 +47,9 @@ public class UserService {
 
     public ResponseEntity<User> create(User item) {
         try {
+            for (Task task : item.getTasks()) {
+                task.setUser(item);
+            }
             User savedItem = repository.save(item);
             return new ResponseEntity<>(savedItem, HttpStatus.CREATED);
         } catch (Exception e) {

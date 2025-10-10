@@ -1,6 +1,9 @@
 package com.backend.peerproject.entity;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -27,15 +30,18 @@ public class User {
     private String user_name;
     private String user_email;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Task> tasks;
+    @JsonManagedReference
+    private List<Task> tasks = new ArrayList<>(); // initialize
 
-    // public void addTask(Task task) {
-    // tasks.add(task);
-    // task.setUser(this); // set the relationship
-    // }
+    // Helper method to add task
+    public void addTask(Task task) {
+        tasks.add(task);
+        task.setUser(this);
+    }
 
-    // public void removeTask(Task task) {
-    // tasks.remove(task);
-    // task.setUser(null); // break the relationship
-    // }
+    // Helper method to remove task
+    public void removeTask(Task task) {
+        tasks.remove(task);
+        task.setUser(null);
+    }
 }

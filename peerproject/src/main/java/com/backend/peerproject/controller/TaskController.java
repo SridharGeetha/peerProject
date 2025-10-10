@@ -1,8 +1,6 @@
 package com.backend.peerproject.controller;
 
-
 import java.util.List;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,14 +34,15 @@ public class TaskController {
         return taskService.getAll();
     }
 
-    @PostMapping
-    public ResponseEntity<Task> create(@RequestBody Task item) {
-        return taskService.create(item);
+    @PostMapping("{user_id}")
+    public ResponseEntity<Task> create(@RequestBody Task item, @PathVariable Long user_id) {
+        return taskService.create(item, user_id);
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<Task> update(@PathVariable("id") Long id, @RequestBody Task item) {
-        return taskService.update(id, item);
+    @PutMapping("{task_id}") // {user_id}")
+    public ResponseEntity<Task> update(@PathVariable("task_id") Long task_id, @RequestBody Task item) {// ,@PathVariable("user_id")
+                                                                                                       // Long user_id
+        return taskService.update(task_id, item);// user_id
     }
 
     @DeleteMapping("{id}")

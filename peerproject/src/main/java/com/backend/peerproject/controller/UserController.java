@@ -23,6 +23,11 @@ public class UserController {
     @Autowired
     UserService service;
 
+    @GetMapping("/hellouser")
+    public String hellouser() {
+        return "hello";
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<User> getById(@PathVariable("id") Long id) {
         return service.getbyId(id);
@@ -30,9 +35,7 @@ public class UserController {
 
     @GetMapping("/all")
     public ResponseEntity<List<User>> getAll() {
-        {
-            return service.getAll();
-        }
+        return service.getAll();
     }
 
     @PostMapping
